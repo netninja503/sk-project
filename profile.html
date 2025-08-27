@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | CareerHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #ff7e5f;
+            --light: #f8f9fa;
+            --dark: #2d3436;
+            --success: #2ecc71;
+            --error: #e74c3c;
+            --gray: #95a5a6;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        /* Profile Content */
+        .profile-container {
+            padding: 40px 0;
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+
+        /* Profile Sidebar */
+        .profile-sidebar {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            text-align: center;
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--light);
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-name {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+
+        .profile-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .profile-actions {
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .primary-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .primary-btn:hover {
+            background: #2980b9;
+        }
+
+        .secondary-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .secondary-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Profile Main */
+        .profile-main {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-title {
+            font-size: 20px;
+            color: var(--secondary);
+        }
+
+        .edit-btn {
+            color: var(--primary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .edit-btn:hover {
+            color: #2980b9;
+        }
+
+        /* About Section */
+        .about-text {
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Experience Section */
+        .experience-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .experience-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .company {
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 18px;
+        }
+
+        .position {
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .duration {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .experience-description {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .skill {
+            background: var(--light);
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .skill-remove {
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .skill-remove:hover {
+            color: var(--error);
+        }
+
+        .add-skill {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .add-skill input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px 0 0 30px;
+            font-size: 14px;
+        }
+
+        .add-skill-btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+        }
+
+        /* Education Section */
+        .education-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .education-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .institution {
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .degree {
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .education-duration {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-sidebar {
+                position: static;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+            
+            .profile-stats {
+                flex-wrap: wrap;
+            }
+            
+            .stat {
+                flex: 0 0 50%;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Career<span>Hub</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="jobs.html">Jobs</a></li>
+                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="resume.html">Resume</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Profile Content -->
+    <div class="container profile-container">
+        <div class="profile-content">
+            <!-- Profile Sidebar -->
+            <div class="profile-sidebar">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile Image" class="profile-img">
+                <h2 class="profile-name">Michael Chen</h2>
+                <p class="profile-title">Senior Software Developer</p>
+                
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Applied Jobs</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Interviews</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">92%</div>
+                        <div class="stat-label">Profile Score</div>
+                    </div>
+                </div>
+                
+                <div class="profile-actions">
+                    <button class="action-btn primary-btn"><i class="fas fa-file-download"></i> Download Resume</button>
+                    <button class="action-btn secondary-btn"><i class="fas fa-share-alt"></i> Share Profile</button>
+                </div>
+            </div>
+            
+            <!-- Profile Main Content -->
+            <div class="profile-main">
+                <!-- About Section -->
+                <div class="profile-card">
+                    <div class="card-header">
+                        <h3 class="card-title">About Me</h3>
+                        <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                    </div>
+                    <div class="about-text">
+                        <p>Experienced software developer with over 7 years of expertise in building scalable web applications. Passionate about clean code, user experience, and mentoring junior developers. Currently specializing in React, Node.js, and cloud infrastructure.</p>
+                        <p>Open to new opportunities that challenge my skills and allow me to contribute to meaningful projects.</p>
+                    </div>
+                </div>
+                
+                <!-- Experience Section -->
+                <div class="profile-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Work Experience</h3>
+                        <button class="edit-btn"><i class="fas fa-plus"></i> Add New</button>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div>
+                                <h4 class="company">TechVision Solutions</h4>
+                                <p class="position">Senior Frontend Developer</p>
+                            </div>
+                            <div class="duration">Jan 2020 - Present</div>
+                        </div>
+                        <div class="experience-description">
+                            <p>Lead frontend development for enterprise SaaS products. Implemented modern React architecture that improved performance by 40%. Mentored 5 junior developers and established coding standards.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div>
+                                <h4 class="company">InnovaSoft</h4>
+                                <p class="position">Web Developer</p>
+                            </div>
+                            <div class="duration">Mar 2016 - Dec 2019</div>
+                        </div>
+                        <div class="experience-description">
+                            <p>Developed and maintained multiple client websites and web applications. Collaborated with designers to implement responsive layouts. Reduced page load times by 60% through optimization techniques.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Skills Section -->
+                <div class="profile-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Skills</h3>
+                        <button class="edit-btn"><i class="fas fa-plus"></i> Add New</button>
+                    </div>
+                    
+                    <div class="skills-container">
+                        <div class="skill">
+                            JavaScript <span class="skill-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div class="skill">
+                            React <span class="skill-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div class="skill">
+                            Node.js <span class="skill-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div class="skill">
+                            TypeScript <span class="skill-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div class="skill">
+                            AWS <span class="skill-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div class="skill">
+                            UI/UX Design <span class="skill-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div class="skill">
+                            Agile Methodology <span class="skill-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div class="skill">
+                            REST APIs <span class="skill-remove"><i class="fas fa-times"></i></span>
+                        </div>
+                    </div>
+                    
+                    <div class="add-skill">
+                        <input type="text" placeholder="Add a new skill">
+                        <button class="add-skill-btn">Add</button>
+                    </div>
+                </div>
+                
+                <!-- Education Section -->
+                <div class="profile-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Education</h3>
+                        <button class="edit-btn"><i class="fas fa-plus"></i> Add New</button>
+                    </div>
+                    
+                    <div class="education-item">
+                        <h4 class="institution">Stanford University</h4>
+                        <p class="degree">Master of Science in Computer Science</p>
+                        <div class="education-duration">2014 - 2016</div>
+                        <p class="experience-description">Specialized in Artificial Intelligence and Machine Learning. Published research on neural network optimization.</p>
+                    </div>
+                    
+                    <div class="education-item">
+                        <h4 class="institution">University of California, Berkeley</h4>
+                        <p class="degree">Bachelor of Science in Software Engineering</p>
+                        <div class="education-duration">2010 - 2014</div>
+                        <p class="experience-description">Graduated with honors. President of Computer Science Student Association.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>CareerHub</h3>
+                    <p>Find your dream job with our advanced job portal. Connect with employers and take your career to the next level.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>For Job Seekers</h3>
+                    <ul>
+                        <li><a href="#">Browse Jobs</a></li>
+                        <li><a href="#">Career Advice</a></li>
+                        <li><a href="#">Resume Builder</a></li>
+                        <li><a href="#">Salary Calculator</a></li>
+                        <li><a href="#">Job Alerts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>For Employers</h3>
+                    <ul>
+                        <li><a href="#">Post a Job</a></li>
+                        <li><a href="#">Search Resumes</a></li>
+                        <li><a href="#">Recruiting Solutions</a></li>
+                        <li><a href="#">Pricing Plans</a></li>
+                        <li><a href="#">Employer Guides</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 CareerHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Skill management
+        const skillRemoveButtons = document.querySelectorAll('.skill-remove');
+        const addSkillBtn = document.querySelector('.add-skill-btn');
+        const skillInput = document.querySelector('.add-skill input');
+        
+        skillRemoveButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+        });
+        
+        addSkillBtn.addEventListener('click', function() {
+            if (skillInput.value.trim() !== '') {
+                const skillsContainer = document.querySelector('.skills-container');
+                const newSkill = document.createElement('div');
+                newSkill.classList.add('skill');
+                newSkill.innerHTML = `${skillInput.value} <span class="skill-remove"><i class="fas fa-times"></i></span>`;
+                
+                skillsContainer.appendChild(newSkill);
+                skillInput.value = '';
+                
+                // Add event listener to the new remove button
+                newSkill.querySelector('.skill-remove').addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            }
+        });
+        
+        // Edit buttons functionality
+        const editButtons = document.querySelectorAll('.edit-btn');
+        
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const cardTitle = this.parentElement.querySelector('.card-title').textContent;
+                alert(`Edit functionality for ${cardTitle} would open here. In a real application, this would allow editing the section content.`);
+            });
+        });
+        
+        // Action buttons functionality
+        const actionButtons = document.querySelectorAll('.action-btn');
+        
+        actionButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if (this.classList.contains('primary-btn')) {
+                    alert('Downloading resume...');
+                } else {
+                    alert('Profile sharing options would appear here.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
